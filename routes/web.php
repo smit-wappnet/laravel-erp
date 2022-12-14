@@ -1,7 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\GuestController;
+use App\Models\Employee;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,5 +31,10 @@ Route::post('/signup', [AuthController::class, 'signup'])->middleware('guest');
 
 // After Login
 Route::get('/', [AuthController::class, 'dashboard'])->middleware("auth");
+
 Route::get('/dashboard', [AuthController::class, 'dashboard'])->middleware("auth")->name('dashboard');
+
+Route::get('/employees', [EmployeeController::class, 'index'])->middleware('auth')->name('employees');
+Route::post('/employees', [EmployeeController::class, 'create'])->middleware('auth');
+
 Route::get('/signout', [AuthController::class, 'signout'])->middleware('auth')->name('signout');

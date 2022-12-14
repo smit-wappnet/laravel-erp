@@ -9,9 +9,14 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 
 class AuthController extends Controller
-{    
-    public function dashboard(){
-        return view('dashboard');
+{
+    public function dashboard()
+    {
+        $user_id = Auth::user()->id;
+        $employee_count = User::find($user_id)->employees()->count();
+
+        $data = compact("employee_count");
+        return view('dashboard', $data);
     }
 
     public function signin_view()
@@ -26,12 +31,11 @@ class AuthController extends Controller
             'password' => 'required'
         ]);
 
-        if(Auth::attempt($request->only('email', 'password'))){
+        if (Auth::attempt($request->only('email', 'password'))) {
             return redirect()->route('dashboard');
         }
 
         return redirect()->route("auth.signin")->withErrors("Error");
-
     }
 
     public function signup_view()
@@ -53,14 +57,15 @@ class AuthController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        if(Auth::attempt($request->only('email', 'password'))){
+        if (Auth::attempt($request->only('email', 'password'))) {
             return redirect()->route('dashboard');
         }
 
         return redirect()->route("auth.signup")->withErrors("Error");
     }
 
-    public function signout(){
+    public function signout()
+    {
         Session::flush();
         Auth::logout();
         return redirect(url("/"));
