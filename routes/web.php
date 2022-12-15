@@ -36,5 +36,9 @@ Route::get('/dashboard', [AuthController::class, 'dashboard'])->middleware("auth
 
 Route::get('/employees', [EmployeeController::class, 'index'])->middleware('auth')->name('employees');
 Route::post('/employees', [EmployeeController::class, 'create'])->middleware('auth');
+Route::get('/employees/delete/{employee}', [EmployeeController::class, 'delete'])->middleware('auth')->name('employees.delete');
+Route::get('/employees/edit/{employee}', [EmployeeController::class, 'edit'])->middleware('auth')->name('employees.edit');
+Route::post('/employees/edit/{employee}', [EmployeeController::class, 'update'])->middleware('auth')->name('employees.edit');
+
 
 Route::get('/signout', [AuthController::class, 'signout'])->middleware('auth')->name('signout');

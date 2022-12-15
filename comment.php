@@ -29,3 +29,8 @@ Route::get("/test", function(){
     // $table->string('mobile');
     // $table->string('address');
 });
+
+
+
+
+return redirect()->back()->withErrors(["email" => "email is not valid"]);

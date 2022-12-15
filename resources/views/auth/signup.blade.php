@@ -10,11 +10,11 @@
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{ asset("plugins/fontawesome-free/css/all.min.css") }}">
+    <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- icheck bootstrap -->
-    <link rel="stylesheet" href="{{ asset("plugins/icheck-bootstrap/icheck-bootstrap.min.css") }}">
+    <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
     <!-- Theme style -->
-    <link rel="stylesheet" href="{{ asset("dist/css/adminlte.min.css") }}">
+    <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
 </head>
 
 <body class="hold-transition register-page">
@@ -28,39 +28,55 @@
 
                 <form action="{{ route('auth.signup') }}" method="post">
                     @csrf
-                    <div class="input-group mb-3">
-                        <input type="text" name="name" id="name" class="form-control" placeholder="Full name" required>
+                    <div class="input-group">
+                        <input type="text" name="name" id="name" class="form-control" placeholder="Full name"
+                            value="{{ old('name') }}" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-user"></span>
                             </div>
                         </div>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="email" name="email" id="email" class="form-control" placeholder="Email" required>
+                    @error('name')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <div class="input-group mt-3">
+                        <input type="email" name="email" id="email" class="form-control" placeholder="Email"
+                            value="{{ old('email') }}" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
                             </div>
                         </div>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+                    @error('email')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <div class="input-group mt-3">
+                        <input type="password" name="password" id="password" class="form-control"
+                            placeholder="Password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
                     </div>
-                    <div class="input-group mb-3">
-                        <input type="password" name="confirm_password" id="confirm_password" class="form-control" placeholder="Retype password" required>
+                    @error('password')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <div class="input-group mt-3">
+                        <input type="password" name="confirm_password" id="confirm_password" class="form-control"
+                            placeholder="Retype password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
                             </div>
                         </div>
                     </div>
-                    <div class="row">
+                    @error('confirm_password')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <div class="row mt-3">
                         <!-- /.col -->
                         <div class="col-4">
                             <button type="submit" class="btn btn-primary btn-block">Sign up</button>
