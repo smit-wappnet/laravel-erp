@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\SendEmail;
+use App\Mail\EmployeeJoined;
+use App\Mail\EmployeeWelcomeMail;
 use App\Models\Employee;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 
 class EmployeeController extends Controller
 {
@@ -42,6 +47,17 @@ class EmployeeController extends Controller
         $employee->address = $request->address;
 
         if ($employee->save()) {
+            $email = $employee->email;
+            $mail = [
+                "template" => "employeejoined",
+                "email" => $email,
+                "body" =>  [
+                    "name" => $employee->firstname,
+                    "company" => Auth::user()->name,
+                    "url" => url('/')
+                ]
+            ];
+            SendEmail::dispatch($mail);
             return redirect()->route('employees');
         } else {
             return redirect()->route('employees')->withErrors(["error" => "Failed to create Employee"]);

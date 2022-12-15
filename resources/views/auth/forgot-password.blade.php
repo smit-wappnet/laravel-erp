@@ -25,9 +25,9 @@
                 <a href="$" class="h1"><b>Admin</b>LTE</a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg">Enter your Email id to forgot password</p>
 
-                <form action="{{ route('auth.signin') }}" method="post">
+                <form action="{{ route('auth.forgot-password') }}" method="post">
                     @csrf
                     <div class="input-group">
                         <input type="email" name="email" id="email" class="form-control" placeholder="Email" value="{{ old('email') }}" required>
@@ -40,31 +40,10 @@
                     @error('email')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
-                    <div class="input-group mt-3">
-                        <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-lock"></span>
-                            </div>
-                        </div>
-                    </div>
-                    @error('password')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
                     <div class="row mt-3">
-                        {{-- <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="remember">
-                                <label for="remember">
-                                    Remember Me
-                                </label>
-                            </div>
-                        </div> --}}
-                        <!-- /.col -->
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+                        <div class="col-8 offset-2">
+                            <button type="submit" class="btn btn-primary btn-block">Forgot Password</button>
                         </div>
-                        <!-- /.col -->
                     </div>
                 </form>
 
@@ -79,10 +58,7 @@
                 <!-- /.social-auth-links -->
 
                 <p class="mb-0 mt-3 text-center">
-                    <a href="{{ route('auth.forgot-password') }}">I forgot my password</a>
-                </p>
-                <p class="mb-0 mt-3 text-center">
-                    <a href="{{ route('auth.signup') }}" class="text-center">Sign up for a new membership</a>
+                    <a href="{{ route('auth.signin') }}" class="text-center">I Want to Login</a>
                 </p>
             </div>
             <!-- /.card-body -->

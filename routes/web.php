@@ -3,8 +3,6 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\GuestController;
-use App\Models\Employee;
-use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,6 +26,11 @@ Route::post('/signin', [AuthController::class, 'signin'])->middleware('guest');
 Route::get('/signup', [AuthController::class, 'signup_view'])->middleware('guest')->name("auth.signup");
 Route::post('/signup', [AuthController::class, 'signup'])->middleware('guest');
 
+Route::get('/forgot-password', [AuthController::class, 'forgot_password_view'])->middleware('guest')->name('auth.forgot-password');
+Route::post('/forgot-password', [AuthController::class, 'forgot_password'])->middleware('guest');
+
+Route::get('/reset-password/{token}', [AuthController::class,'reset_password_view'])->middleware('guest')->name('password.reset');
+Route::post('/reset-password/{token}', [AuthController::class,'reset_password'])->middleware('guest')->name("auth.reset-password");
 
 // After Login
 Route::get('/', [AuthController::class, 'dashboard'])->middleware("auth");

@@ -25,23 +25,14 @@
                 <a href="$" class="h1"><b>Admin</b>LTE</a>
             </div>
             <div class="card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
-
-                <form action="{{ route('auth.signin') }}" method="post">
+                <p class="login-box-msg">Reset password for {{ $email }}</p>
+                <form action="{{ route('auth.reset-password', ['token' => $token]) }}" method="post">
                     @csrf
-                    <div class="input-group">
-                        <input type="email" name="email" id="email" class="form-control" placeholder="Email" value="{{ old('email') }}" required>
-                        <div class="input-group-append">
-                            <div class="input-group-text">
-                                <span class="fas fa-envelope"></span>
-                            </div>
-                        </div>
-                    </div>
-                    @error('email')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
+                    <input type="hidden" name="email" value="{{ $email }}">
+                    <input type="hidden" name="token" value="{{ $token }}">
                     <div class="input-group mt-3">
-                        <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+                        <input type="password" name="password" id="password" class="form-control"
+                            placeholder="Password" required>
                         <div class="input-group-append">
                             <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -51,20 +42,22 @@
                     @error('password')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
-                    <div class="row mt-3">
-                        {{-- <div class="col-8">
-                            <div class="icheck-primary">
-                                <input type="checkbox" id="remember">
-                                <label for="remember">
-                                    Remember Me
-                                </label>
+                    <div class="input-group mt-3">
+                        <input type="password" name="password_confirmation" id="password_confirmation" class="form-control"
+                            placeholder="Retype password" required>
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
                             </div>
-                        </div> --}}
-                        <!-- /.col -->
-                        <div class="col-4">
-                            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
                         </div>
-                        <!-- /.col -->
+                    </div>
+                    @error('password_confirmation')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <div class="row mt-3">
+                        <div class="col-8 offset-2">
+                            <button type="submit" class="btn btn-primary btn-block">Forgot Password</button>
+                        </div>
                     </div>
                 </form>
 
@@ -79,10 +72,7 @@
                 <!-- /.social-auth-links -->
 
                 <p class="mb-0 mt-3 text-center">
-                    <a href="{{ route('auth.forgot-password') }}">I forgot my password</a>
-                </p>
-                <p class="mb-0 mt-3 text-center">
-                    <a href="{{ route('auth.signup') }}" class="text-center">Sign up for a new membership</a>
+                    <a href="{{ route('auth.signin') }}" class="text-center">I Want to Login</a>
                 </p>
             </div>
             <!-- /.card-body -->
